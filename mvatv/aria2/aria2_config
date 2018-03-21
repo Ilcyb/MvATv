@@ -1,0 +1,6 @@
+enable-rpc=true
+rpc-allow-origin-all=true
+rpc-listen-all=true
+rpc-listen-port=6800
+human-readable=true
+continue=true
