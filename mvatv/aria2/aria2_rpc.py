@@ -15,10 +15,11 @@ def _execute_aria2c_rpc_command(method, host, params, id, **options):
         Please check if the host address and port number are correct.''')
     except Exception as e:
         print('Unhandled exception occurred:', '\n', e)
+    else:
         return aria2_return_info
 
 def addUri(host, uri, id, **options):
     response = _execute_aria2c_rpc_command('aria2.addUri', host, [uri], id, **options)
     response = json.loads(response.text)
-    if response.get(id, 'None') == id:
+    if response.get('id', 'None') == id:
         return response.get('result')
