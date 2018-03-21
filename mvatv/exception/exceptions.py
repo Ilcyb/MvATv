@@ -1,0 +1,3 @@
+class CantPlugingError(Exception):
+    pass
+    
