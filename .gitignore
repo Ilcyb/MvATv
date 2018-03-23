@@ -2,3 +2,4 @@
 options.txt
 Pipfile
 Pipfile.lock
+__pycache__/
