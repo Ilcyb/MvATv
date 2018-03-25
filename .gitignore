@@ -3,3 +3,6 @@ options.txt
 Pipfile
 Pipfile.lock
 __pycache__/
+build/
+dist/
+mvatv.egg-info/
