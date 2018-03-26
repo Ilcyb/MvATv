@@ -1,5 +1,3 @@
-from .controller import update_tracker_command
-
 COMMAND_UPDATE_TRACKER = 'update-tracker'
 COMMAND_SEARCH = 'search'
 
