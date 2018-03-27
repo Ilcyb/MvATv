@@ -1,1 +1,1 @@
-from zimuzu import ZIMUZU
+from .zimuzu import ZIMUZU

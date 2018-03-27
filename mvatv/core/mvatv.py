@@ -7,10 +7,10 @@ import requests
 
 class MVATV(object):
 
-    def __init__(self):
-        self.plugins = list()
+    plugins = list()
 
-    def plugging(self, pluggable):
+    @classmethod
+    def plugging(cls, pluggable):
         if Plugin not in type(pluggable).__bases__:
             raise CantPlugingError('Your plugin must inherit Plugin class.')
         if not hasattr(pluggable, 'search'):
@@ -18,22 +18,25 @@ class MVATV(object):
         if not hasattr(pluggable, 'get_type'):
             raise CantPlugingError('Your plugin must implement get_type method.')
             
-        self.plugins.append(pluggable)
+        cls.plugins.append(pluggable)
 
-    def get_support_types(self):
-        return [plugin.get_type() for plugin in self.plugins]
+    @classmethod
+    def get_support_types(cls):
+        print('enter get_s_t')
+        return [plugin.get_type() for plugin in cls.plugins]
 
-    def search(self, type, name, season, episode, quality, subscript):
+    @classmethod
+    def search(cls, type, name, season, episode, quality, subscript):
         result = list()
         try:
             if season <= 0:
                 raise SearchInfoError('season cannot be a nagetive number')
             if episode <= 0:
                 raise SearchInfoError('episode cannot be a nagetive number')
-            if quality not in ['High', 'Meduim', 'Low']:
-                raise SearchInfoError('quality must be High, Meduim or Low')
-            for plugin in [plugin for plugin in self.plugins if plugin.get_type() == type]:
-                result.append(plugin.search(name, season, episode, Quality['quality'], subscript))
+            if quality not in ['High', 'Medium', 'Low']:
+                raise SearchInfoError('quality must be High, Medium or Low')
+            for plugin in [plugin for plugin in cls.plugins if plugin.get_type() == type]:
+                result.append(plugin.search(name, season, episode, Quality[quality], subscript))
             result = [r for r in result if result != None]
             if len(result) == 0:
                 raise NoResourceError

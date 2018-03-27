@@ -1,6 +1,6 @@
 from mvatv.utils.utils import update_tracker
 from mvatv.aria2 import aria2_tracker_file_path
-from mvatv.main import mvatv
+from mvatv.core.mvatv import MVATV
 from mvatv.core.commands import COMMAND_SEARCH, COMMAND_UPDATE_TRACKER
 from mvatv.exception.exceptions import SearchInfoError, NoResourceError
 
@@ -18,7 +18,8 @@ def update_tracker_command(action, tracker_file_path=aria2_tracker_file_path()):
 
 def search(action):
     try:
-        result = mvatv.search(action.type, action.name, action.season, action.episode, action.quality, action.subscript)
+        result = MVATV.search(action.type, action.name, action.season, action.episode, action.quality, action.subscript)
+        print(result)
         return result
     except SearchInfoError as e:
         print(e)
