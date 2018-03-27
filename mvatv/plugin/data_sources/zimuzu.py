@@ -14,9 +14,9 @@ from mvatv.utils.utils import Quality
 class ZIMUZU(Plugin):
     
     def __init__(self):
-        pass
+        self._type = 'tv'
 
-    def _search(self, keyword, season=1, episode=1, quality=Quality.Medium, need_subscript=True):
+    def search(self, keyword, season=1, episode=1, quality=Quality.Medium, need_subscript=True):
         headers = {'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
         'Accept-Language':'zh-CN,zh;q=0.9,en;q=0.8','Referer':'http://www.zimuzu.tv/',
         'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'}
@@ -42,13 +42,14 @@ class ZIMUZU(Plugin):
             resource_index = self._choose_resource_by_quality(zimu_type_and_capacity_list_list, quality, need_subscript)
             return self._get_magnet_link(lis[resource_index])
         except NoResourceError:
-            raise
+            return
         except requests.exceptions.HTTPError:
-            print('Can\'t connect to the data source, please check the data source is normal.')
-        except Exception as e:
-            print('Unhandled exception occurred:', '\n', e)
+            raise
+        except Exception:
             raise
 
+    def get_type(self):
+        return self._type
 
     def _choose_resource_by_quality(self, subscript_quality_list, quality, need_subscript):
         require_resource_list = list()

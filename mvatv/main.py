@@ -2,8 +2,13 @@ import argparse
 
 from mvatv.core.controller import executor
 from mvatv.core.commands import commands
+from mvatv.core.mvatv import MVATV
+from mvatv.plugin.data_sources import ZIMUZU
 
+mvatv = MVATV()
 def main():
+    load_plugins(mvatv)
+
     parser = argparse.ArgumentParser()
     sub_parser = parser.add_subparsers(dest='command')
 
@@ -14,3 +19,6 @@ def main():
 
     action = parser.parse_args()
     executor(action)
+
+def load_plugins(mvatv):
+    mvatv.plugging(ZIMUZU())

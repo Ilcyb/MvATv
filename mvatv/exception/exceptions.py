@@ -3,3 +3,6 @@ class CantPlugingError(Exception):
 
 class NoResourceError(Exception):
     pass
+
+class SearchInfoError(Exception):
+    pass
